@@ -1,7 +1,31 @@
 
+/*								*
+ *			Lab_1	Variant #2			*
+ *	  		Edited by Fedorov Alex			*
+ * Task: v							*
+ * v	1. wndclass parameters					*
+ *	v	1) wnd class name  <- <last name> of author	*
+ *	v	2) wnd class style <- CS_OWNDC			*
+ *	v	3) icon handle     <- IDI_QUESTION		*
+ *	v	4) cursor handle   <- IDC_UPARROW		*
+ *	v	5) brush handle    <- BLACK_BRUSH		*
+ * v	2. window example parameters				*
+ *	v	1) window title	   <- "Author is <last name>"	*
+ *	v	2) window position				*
+ *	v	3) window style    <- 1 and WS_VSCROLL		*
+ *								*/
+
+
 /*					*
  *	Refactored by Fedorov Alex	*
  *	      source: x.cpp		*
+ *    This is a main file of project	*
+ *   other files:			*
+ *		constants.hpp		*
+ *		includes.hpp		*
+ *		prototypes.hpp		*
+ *		wininitcore.hpp		*
+ *		winmsgcore.hpp		*
  *					*/
 
 #include "includes.hpp"

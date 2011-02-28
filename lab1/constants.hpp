@@ -8,11 +8,11 @@
 
 // WNDCLASS constants
 const char 
-wc_ClassName[] = "DepartComTech",
-wc_wndname[] = "First Example";
+wc_ClassName[] = "Fedorov",			// T1.1
+wc_wndname[] = "Author is Fedorov";		// T2.1
 
 UINT 
-wc_style = CS_HREDRAW | CS_VREDRAW;
+wc_style = CS_OWNDC;				// T1.2
 
 WNDPROC
 wc_wndproc = WndProc;
@@ -20,21 +20,21 @@ wc_wndproc = WndProc;
 int
 wc_clsextra = 0,
 wc_wndextra = 0,
-wc_background_stock = WHITE_BRUSH;
+wc_background_stock = BLACK_BRUSH;		// T1.5
 
 LPCTSTR
-wc_iconname = IDI_APPLICATION,
-wc_cursorname = IDC_ARROW;
+wc_iconname = IDI_QUESTION,			// T1.3
+wc_cursorname = IDC_UPARROW;			// T1.4
 
 // window constants
 DWORD
-wnd_style = WS_OVERLAPPEDWINDOW;
+wnd_style = 1 & WS_VSCROLL;			// T2.3
 
 int
-wnd_left = CW_USEDEFAULT,
-wnd_top = CW_USEDEFAULT,
-wnd_width = CW_USEDEFAULT,
-wnd_height = CW_USEDEFAULT;
+wnd_left = 200,					// *		*
+wnd_top = 200,					// *  	T2.2	*
+wnd_width = 400,				// *	here	*
+wnd_height = 300;				// *		*
 
 // error messages
 const char
