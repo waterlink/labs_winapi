@@ -1,6 +1,6 @@
 CC=i586-mingw32msvc-gcc
 CFLAGS=-c -Wall -mwindows
-LDFLAGS=
+LDFLAGS= -mwindows
 SOURCES=x.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=x.exe
