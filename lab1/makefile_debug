@@ -6,7 +6,7 @@
 # 	    mingw32		#
 #				#
 
-CC=i586-mingw32msvc-gcc
+CC=i586-mingw32msvc-gcc -g -O0
 CFLAGS=-c -Wall -mwindows
 LDFLAGS= -mwindows -Wl,--allow-multiple-definition
 SOURCES=x.cpp wininitcore.cpp winmsgcore.cpp
