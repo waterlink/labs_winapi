@@ -1,15 +1,79 @@
-#include<windows.h>
 
-// прототип оконной функции
+/*					*
+ *	Refactored by Fedorov Alex	*
+ *					*/
+
+#include <windows.h>
+#include <cstring>
+
+// my window procedure prototype
 LRESULT CALLBACK 
-DepartComTechWndProc(
+WndProc(
 			HWND, 
 			UINT, 
 			UINT, 
 			LONG
 		);
 
-// описание функции WinMain - точки входа в программу
+// WNDCLASS constants
+const char 
+wc_ClassName[] = "DepartComTech",
+wc_wndname[] = "First Example";
+
+UINT 
+wc_style = CS_HREDRAW | CS_VREDRAW;
+
+WNDPROC
+wc_wndproc = WndProc;
+
+int
+wc_clsextra = 0,
+wc_wndextra = 0,
+wc_background_stock = WHITE_BRUSH;
+
+LPCTSTR
+wc_iconname = IDI_APPLICATION,
+wc_cursorname = IDC_ARROW;
+
+// window constants
+DWORD
+wnd_style = WS_OVERLAPPEDWINDOW;
+
+int
+wnd_left = CW_USEDEFAULT,
+wnd_top = CW_USEDEFAULT,
+wnd_width = CW_USEDEFAULT,
+wnd_height = CW_USEDEFAULT;
+
+// error messages
+const char
+err_regwndclass[] = "Cannot register class",
+err_type[] = "Error",
+err_createwnd[] = "Cannot create window";
+
+UINT
+err_buttons = MB_OK;
+
+// messaging subsystem constants
+UINT
+msg_minfilter = 0,
+msg_maxfilter = 0;
+
+// text drawing constants
+char
+td_text[] = "Department of Computer Technology";
+
+int
+td_nullterminated = -1;
+
+UINT
+td_format = DT_SINGLELINE | DT_CENTER | DT_VCENTER;
+
+// onquit constants
+int
+q_success = 0;
+
+// definition of main windows function - start point of program
 int __stdcall 
 WinMain(
 		HINSTANCE hInstance, 
@@ -18,192 +82,181 @@ WinMain(
 		int nCmdShow
 	){
 
+	WNDCLASS 
+	WndClass; // structure with features of my window class
 
-	// структура с характеристиками создаваемого класса
-	WNDCLASS WndClass; 
+	HWND 
+	hWnd; // window handle
 
-	HWND hWnd; // дескриптор создаваемого окна
+	MSG 
+	Msg; // message struct
 
-	MSG Msg; // структура, описывающая сообщение
-
-	// инициализация имени класса как строки
-	char szClassName[] = "DepartComTech";
-
-	// заполнение структуры типа WNDCLASS
-
-	WndClass.style = CS_HREDRAW | CS_VREDRAW;
-	WndClass.lpfnWndProc = DepartComTechWndProc;
-	WndClass.cbClsExtra = 0;
-	WndClass.cbWndExtra = 0;
+	// initializing structure WNDCLASS
+	WndClass.style = wc_style;
+	WndClass.lpfnWndProc = wc_wndproc;
+	WndClass.cbClsExtra = wc_clsextra;
+	WndClass.cbWndExtra = wc_wndextra;
 	WndClass.hInstance = hInstance;
 	WndClass.hIcon = LoadIcon(
 					NULL, 
-					IDI_APPLICATION
+					wc_iconname
 				);
 	WndClass.hCursor = LoadCursor(
 					NULL,
-					IDC_ARROW
+					wc_cursorname
 				);
-	WndClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
+	WndClass.hbrBackground = (HBRUSH)GetStockObject(wc_background_stock);
 	WndClass.lpszMenuName = NULL;
-	WndClass.lpszClassName = szClassName;
+	WndClass.lpszClassName = wc_ClassName;
 
-	// регистрация создаваемого класса и выдача сообщения в случае
-	// невозможности регистрации
-
+	// register our window class or die with error message
 	if (!RegisterClass(&WndClass)){
 
 		MessageBox(
 				NULL,
-				"Cannot register class",
-				"Error",
-				MB_OK
+				err_regwndclass,
+				err_type,
+				err_buttons
 			);
 
-		return 0;
+		return q_success;
 
 	}
 
-	// создание окна зарегистрированного класса
-
+	// create example window of our window class ...
 	hWnd = CreateWindow(
-				szClassName,
-				"First Example",
-				WS_OVERLAPPEDWINDOW, 
-				CW_USEDEFAULT,
-				CW_USEDEFAULT,
-				CW_USEDEFAULT,
-				CW_USEDEFAULT,
+				wc_ClassName,
+				wc_wndname,
+				wnd_style, 
+				wnd_left,
+				wnd_top,
+				wnd_width,
+				wnd_height,
 				NULL,
 				NULL,
 				hInstance,
 				NULL
 			);
 
-	// выдача сообщения в случае невозможности создания окна
-
+	// ... or die with error message
 	if(!hWnd){
 
 		MessageBox(
 				NULL,
-				"Cannot create window",
-				"Error",
-				MB_OK
+				err_createwnd,
+				err_type,
+				err_buttons
 			);
 
-		return 0;
+		return q_success;
 
 	}
 
-	// отображение окна на экране
-
+	// show our window on our display|monitor
 	ShowWindow(
 			hWnd,
 			nCmdShow
 		);
 
-	// посылка оконной функции сообщения WM_PAINT с требованием
-	// перерисовать рабочую область окна
-
+	// send WM_PAINT message to update and repaint our window
 	UpdateWindow(hWnd);
 
-	// цикл обработки сообщений
-	// выбор сообщений из очереди функцией GetMessage
-
+	// main loop, gets messages from system using 
+	// GetMessage function and processes it
 	while(
 			GetMessage(
 					&Msg,
 					NULL,
-					0,
-					0
+					msg_minfilter,
+					msg_maxfilter
 				)
 		){
 
 
-		// преобразование сообщения к одному стилю обработки
-
+		// translating message to identic form
 		TranslateMessage(&Msg);
 
-		// передача сообщения в оконную функцию
-
+		// force our window procedure to process our message
 		DispatchMessage(&Msg);
 	}
 
-	// возврат дополнительной информации о сообщении
-
+	// return extra information about message
 	return Msg.wParam;
 
 }
 
 LRESULT CALLBACK 
-DepartComTechWndProc(
+WndProc(
 			HWND hWnd,
 			UINT Message, 
 			UINT wParam,
 			LONG lParam
 		){
 
-	// дескриптор контекста устройства
-	HDC hDC;
+	HDC 
+	hDC; // device context handle
 
-	// характеристики области рисования
-	PAINTSTRUCT PaintStruct;
+	PAINTSTRUCT 
+	PaintStruct; // features of our painting area
 
-	// определение области рисования
-	RECT Rect;
+	RECT 
+	Rect; // painting area rectangle
 
-	// выбор нужной последовательности обработки для
-	// конкретного сообщения
-	switch(Message){
+	// we are interesting only in paint and destroy messages
+	switch (Message){
 
 		case WM_PAINT:
 
-			// обработка сообщения о перерисовке рабочей зоны окна
-			// получение дескриптора устройства
+			// get our device context handle
 			hDC = BeginPaint(
 						hWnd,
 						&PaintStruct
 					);
 
-			// определение клиентской области для рисования,
-			// в структуре Rect первые две координаты равны 0, а -
-			// третья и четвертая - значения ширины и высоты окна
+			// determine our client area for painting
+			// usually, (0, 0), (a, b)
+			// where a - width, b - height
 			GetClientRect(
 					hWnd,
 					&Rect
 				);
 
-			// вывод строки в зону, определенную флажками
+			// out our text in our format
 			DrawText(
 					hDC,
-					"Department of Computer Technology",
-					-1,
+					td_text,
+					td_nullterminated,
 					&Rect,
-					DT_SINGLELINE|DT_CENTER|DT_VCENTER
+					td_format
 				);
 
-			// завершение перерисовки
+			// finilization of painting
 			EndPaint(
 					hWnd,
 					&PaintStruct
 				);
 
-			return 0;
+			return q_success;
 
-		// начало операции уничтожения окна
-		// сообщение WM_DESTROY появляется в очереди сообщений при
-		// закрытии окна
+		// somebody wants to close our window!
 		case WM_DESTROY:
 
-			// функция PostQuitMessage посылает окну (данным об окне в 
-			// системе) сообщение WM_QUIT, которое вызывает прекращение
-			// цикла обработки
-			PostQuitMessage(0);
+			// here we want to save smth, or clean up
+			// but sadly, project is too light, nothing to do here
 
-			return 0;
+			// tell system "everything is ok, close me"
+			PostQuitMessage(q_success);
+
+			return q_success;
 	}
 
-	// обработка всех остальных сообщений (по умолчанию)
-	return DefWindowProc(hWnd,Message,wParam,lParam);
+	// another message? don't care. call default window procedure
+	return DefWindowProc(
+				hWnd,
+				Message,
+				wParam,
+				lParam
+			);
 
 }
+
