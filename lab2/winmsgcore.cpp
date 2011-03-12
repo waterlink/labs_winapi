@@ -76,38 +76,90 @@ on_paint(
 	){
 
 	HDC 
-	hDC; // device context handle
+	hDC, 				// driver context handle
+	hCompatibleDC;			// driver context handle in memory
 
 	PAINTSTRUCT 
-	PaintStruct; // features of our painting area
+	PaintStruct;			// features of painting area
 
+	HANDLE 
+	hBitmap,			// loaded bitmap handle
+	hOldBitmap;			// old bitmap handle
+	
 	RECT 
-	Rect; // painting area rectangle
+	Rect;				// client area for painting
 
-	// get our device context handle
+	BITMAP 
+	Bitmap;				// logical parameters of our bitmap
+
+	// get handle of our driver context
 	hDC = BeginPaint(
 				hWnd,
 				&PaintStruct
 			);
 
-	// determine our client area for painting
-	// usually, (0, 0), (a, b)
-	// where a - width, b - height
+	// load our bitmap from file in current folder
+	hBitmap = LoadImage(
+				NULL,
+				img_path, 
+				img_type,
+				0,
+				0,
+				LR_LOADFROMFILE
+			);
+
+	// get a size of our bitmap
+	GetObject(
+			hBitmap,
+			sizeof(BITMAP),
+			&Bitmap
+		);
+
+	// create compatible driver context
+	// with our driver context in memory
+	hCompatibleDC = CreateCompatibleDC(hDC);
+
+	// selecting our bitmap as current
+	// in our context in memory
+	hOldBitmap = SelectObject(
+					hCompatibleDC,
+					hBitmap
+				);
+
+	// get our client painting area
 	GetClientRect(
-			hWnd,
-			&Rect
-		);
+				hWnd,
+				&Rect
+			);
 
-	// out our text in our format
-	DrawText(
+	// copy our bitmap to compatible context with stretching
+	StretchBlt(
 			hDC,
-			td_text,
-			td_nullterminated,
-			&Rect,
-			td_format
+			0,
+			0,
+			Rect.right, 
+			Rect.bottom,
+			hCompatibleDC,
+			0,
+			0,
+			Bitmap.bmWidth,
+			Bitmap.bmHeight,
+			SRCCOPY
 		);
 
-	// finilization of painting
+	// older bitmap becomes a current one
+	SelectObject(
+				hCompatibleDC,
+				hOldBitmap
+			);
+
+	// delete loaded bitmap
+	DeleteObject(hBitmap);
+
+	// delete compatible context in memory
+	DeleteDC(hCompatibleDC);
+
+	// finalizing painting
 	EndPaint(
 			hWnd,
 			&PaintStruct

@@ -14,20 +14,20 @@ const char
 wc_ClassName[] = "Fedorov",			// T1.1
 wc_wndname[] = "Author is Fedorov";		// T2.1
 
-UINT 
+const UINT 
 wc_style = CS_OWNDC;				// T1.2
 
-WNDPROC
+const WNDPROC
 wc_wndproc = WndProc;
 
-int
+const int
 wc_clsextra = 0,
 wc_wndextra = 0,
 wc_background_stock = 
 #ifdef debug
 COLOR_WINDOW + 1;
 #else
-BLACK_BRUSH;		// T1.5
+BLACK_BRUSH;					// T1.5
 #endif
 
 LPCTSTR
@@ -38,7 +38,7 @@ wc_cursorname = IDC_UPARROW;			// T1.4
 DWORD
 wnd_style = WS_OVERLAPPED | WS_VSCROLL;		// T2.3
 
-int
+const int
 wnd_left = 200,					// *		*
 wnd_top = 200,					// *  	T2.2	*
 wnd_width = 400,				// *	here	*
@@ -50,7 +50,7 @@ err_regwndclass[] = "Cannot register class",
 err_type[] = "Error",
 err_createwnd[] = "Cannot create window";
 
-UINT
+const UINT
 err_buttons = MB_OK;
 
 // messaging subsystem constants
@@ -59,18 +59,25 @@ msg_minfilter = 0,
 msg_maxfilter = 0;
 
 // text drawing constants
-char
+const char
 td_text[] = "Department of Computer Technology";
 
-int
+const int
 td_nullterminated = -1;
 
-UINT
+const UINT
 td_format = DT_SINGLELINE | DT_CENTER | DT_VCENTER;
 
 // onquit constants
-int
+const int
 q_success = 0;
+
+// image loading constants
+const char
+img_path[] = "MyFile.bmp";
+
+const int
+img_type = IMAGE_BITMAP;
 
 
 #endif

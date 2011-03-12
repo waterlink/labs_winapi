@@ -9,4 +9,8 @@
 #include <windows.h>
 #include <cstring>
 
+#define just_param(x) x
+#define just_comment just_param()
+#define singleton just_comment
+
 #endif
