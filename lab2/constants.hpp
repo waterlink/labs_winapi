@@ -48,7 +48,9 @@ wnd_height = 700;				// *		*
 const char
 err_regwndclass[] = "Cannot register class",
 err_type[] = "Error",
-err_createwnd[] = "Cannot create window";
+err_createwnd[] = "Cannot create window",
+err_printer[] = "Cannot open printer",
+err_printer_prepare[] = "Cannot prepare printer";
 
 const UINT
 err_buttons = MB_OK;
@@ -60,7 +62,7 @@ msg_maxfilter = 0;
 
 // text drawing constants
 const char
-td_text[] = "Department of Computer Technology";
+td_text[] = "Edited by Fedorov Alex";
 
 const int
 td_nullterminated = -1;
@@ -79,8 +81,27 @@ img_path[] = "MyFile.bmp";
 const int
 img_type = IMAGE_BITMAP;
 
+// printer constants
+const int
+max_prname_size = 255;
+
+const char
+prn_driver[] = "WINSPOOL",
+prn_docname[] = "TextToPrint",
+prn_okmsg[] = "Document queued for print",
+prn_oktitle[] = "Everything is ok";
+
+const int
+prn_left = 5,
+prn_top = 5,
+prn_right = 10,
+prn_bottom = 10;
+
 // global variables
 bool
-stretched = true;
+stretched = true,
+flag_prim1 = false,
+flag_prim2 = false;
 
 #endif
+

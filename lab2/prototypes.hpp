@@ -56,7 +56,8 @@ on_paint(
 // WM_KEYDOWN message processor
 void
 on_keydown(
-		HWND & hWnd
+		HWND & hWnd,
+		UINT wParam
 	);
 
 // image loader, loads only one time
@@ -66,5 +67,11 @@ img_load(
 		const char * path,
 		int imgtype
 	);
+
+// prints text on default printer, or dies with error
+void
+print_out_text(
+			HWND & hWnd
+		);
 
 #endif

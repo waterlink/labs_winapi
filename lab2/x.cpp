@@ -1,19 +1,32 @@
-/*
-					Lab_2	Variant #2
-					Edited by Fedorov Alex
-	L2T:
-		1. image modifications
-		v	1) stretched and unstretched bitmap
-		v	2) do not load image each time
-			3) out text over an image
-			4) out this text on printer
-		2. graphical primitives
-			1)
 
+/************************************************************************
+ *									*
+ *			Lab_2	Variant #2				*
+ *			Edited by Fedorov Alex				*
+ *	L2T: v								*
+ *	v	1. image modifications					*
+ *		v	1) stretched and unstretched bitmap		*
+ *		v	2) do not load image each time			*
+ *		v	3) out text over an image			*
+ *		v	4) out this text on printer			*
+ *	v	2. graphical primitives, second over first		*
+ *		v	1) first   <- Ellipse				*
+ *			v	a. pen style	<- PS_NULL		*
+ *			v	b. pen thickness<- 2			*
+ *			v	c. pen color	<- 0, 0, 255		*
+ *			v	d. brush color	<- 0, 0, 255		*
+ *		v	2) second  <- Rectangle				*
+ *			v	a. brush style	<- HS_VERTICAL		*
+ *			v	b. brush color 	<- 128, 128, 255	*
+ *			v	c. pen style	<- PS_INSIDEFRAME	*
+ *			v	d. pen thickness<- 3			*
+ *			v	e. pen color	<- 0, 0, 0		*
+ *									*
+ *									*
+ ************************************************************************/
 
-*/
-
-/*								*
+/****************************************************************
+ *								*
  *			Lab_1	Variant #2			*
  *	  		Edited by Fedorov Alex			*
  * Task: v							*
@@ -27,10 +40,12 @@
  *	v	1) window title	   <- "Author is <last name>"	*
  *	v	2) window position				*
  *	v	3) window style    <-WS_OVERLAPPED & WS_VSCROLL *
- *								*/
+ *								*
+ ****************************************************************/
 
 
-/*					*
+/****************************************
+ *					*
  *	Refactored by Fedorov Alex	*
  *	      source: x.cpp		*
  *    This is a main file of project	*
@@ -38,9 +53,11 @@
  *		constants.hpp		*
  *		includes.hpp		*
  *		prototypes.hpp		*
- *		wininitcore.hpp		*
- *		winmsgcore.hpp		*
- *					*/
+ *		wininitcore.cpp		*
+ *		winmsgcore.cpp		*
+ *		imgcore.cpp		*
+ *					*
+ ****************************************/
 
 #include "includes.hpp"
 #include "prototypes.hpp"
@@ -54,6 +71,8 @@ WinMain(
 		LPSTR lpszCmdParam, 
 		int nCmdShow
 	){
+
+	printf("%d\n", _WIN32_WINNT);
 
 	WNDCLASS 
 	WndClass; // structure with features of my window class

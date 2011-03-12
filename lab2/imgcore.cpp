@@ -1,3 +1,9 @@
+
+/*					*
+ *	Refactored by Fedorov Alex	*
+ *	    source: imgcore.cpp		*
+ *					*/
+
 #include "includes.hpp"
 #include "prototypes.hpp"
 #include "constants.hpp"

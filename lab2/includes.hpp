@@ -6,7 +6,12 @@
  *	   header: includes.hpp		*
  *					*/
 
+// this windows version is needed for printer
+#undef _WIN32_WINNT
+#define _WIN32_WINNT 0x0500
+
 #include <windows.h>
+#include <winspool.h>
 #include <cstring>
 #include <cstdio>
 
