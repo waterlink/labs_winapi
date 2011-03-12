@@ -8,6 +8,7 @@
 
 #include <windows.h>
 #include <cstring>
+#include <cstdio>
 
 #define just_param(x) x
 #define just_comment just_param()

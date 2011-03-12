@@ -39,10 +39,10 @@ DWORD
 wnd_style = WS_OVERLAPPED | WS_VSCROLL;		// T2.3
 
 const int
-wnd_left = 200,					// *		*
-wnd_top = 200,					// *  	T2.2	*
-wnd_width = 400,				// *	here	*
-wnd_height = 300;				// *		*
+wnd_left = 100,					// *		*
+wnd_top = 100,					// *  	T2.2	*
+wnd_width = 800,				// *	here	*
+wnd_height = 700;				// *		*
 
 // error messages
 const char
@@ -79,5 +79,8 @@ img_path[] = "MyFile.bmp";
 const int
 img_type = IMAGE_BITMAP;
 
+// global variables
+bool
+stretched = true;
 
 #endif

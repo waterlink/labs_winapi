@@ -10,7 +10,7 @@
 CC=i586-mingw32msvc-gcc
 CFLAGS=-c -Wall -mwindows
 LDFLAGS= -mwindows -Wl,--allow-multiple-definition
-SOURCES=x.cpp wininitcore.cpp winmsgcore.cpp
+SOURCES=x.cpp wininitcore.cpp winmsgcore.cpp imgcore.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=x.exe
 

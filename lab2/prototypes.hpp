@@ -53,4 +53,18 @@ on_paint(
 		HWND & hWnd
 	);
 
+// WM_KEYDOWN message processor
+void
+on_keydown(
+		HWND & hWnd
+	);
+
+// image loader, loads only one time
+HANDLE
+img_load(
+		HWND & hWnd,
+		const char * path,
+		int imgtype
+	);
+
 #endif

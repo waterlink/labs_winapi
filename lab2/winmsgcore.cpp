@@ -25,6 +25,12 @@ WndProc(
 
 			return q_success;
 
+		case WM_KEYDOWN:
+
+			on_keydown(hWnd);
+
+			return q_success;
+
 		// somebody wants to close our window!
 		case WM_DESTROY:
 
@@ -99,13 +105,10 @@ on_paint(
 			);
 
 	// load our bitmap from file in current folder
-	hBitmap = LoadImage(
-				NULL,
-				img_path, 
-				img_type,
-				0,
-				0,
-				LR_LOADFROMFILE
+	hBitmap = img_load(
+				hWnd,
+				img_path,
+				img_type
 			);
 
 	// get a size of our bitmap
@@ -132,13 +135,13 @@ on_paint(
 				&Rect
 			);
 
-	// copy our bitmap to compatible context with stretching
+	// copy our bitmap to compatible context with stretching, if flag is active
 	StretchBlt(
 			hDC,
 			0,
 			0,
-			Rect.right, 
-			Rect.bottom,
+			(stretched ? Rect.right : Rect.right / 2), 
+			(stretched ? Rect.bottom : Rect.bottom / 2),
 			hCompatibleDC,
 			0,
 			0,
@@ -153,8 +156,8 @@ on_paint(
 				hOldBitmap
 			);
 
-	// delete loaded bitmap
-	DeleteObject(hBitmap);
+	// delete loaded bitmap - we don't want do that now
+	//DeleteObject(hBitmap);
 
 	// delete compatible context in memory
 	DeleteDC(hCompatibleDC);
@@ -164,6 +167,17 @@ on_paint(
 			hWnd,
 			&PaintStruct
 		);
+
+}
+
+void
+on_keydown(
+		HWND & hWnd
+	){
+
+	stretched = !stretched;
+
+	//fprintf(stderr, "stretch is %d\n", stretched);
 
 }
 
