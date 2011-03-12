@@ -12,7 +12,7 @@
  * v	2. window example parameters				*
  *	v	1) window title	   <- "Author is <last name>"	*
  *	v	2) window position				*
- *	v	3) window style    <- 1 and WS_VSCROLL		*
+ *	v	3) window style    <-WS_OVERLAPPED & WS_VSCROLL *
  *								*/
 
 

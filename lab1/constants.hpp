@@ -6,6 +6,9 @@
  *	  header: constants.hpp		*
  *					*/
 
+//debug is off
+//#define debug
+
 // WNDCLASS constants
 const char 
 wc_ClassName[] = "Fedorov",			// T1.1
@@ -20,7 +23,12 @@ wc_wndproc = WndProc;
 int
 wc_clsextra = 0,
 wc_wndextra = 0,
-wc_background_stock = BLACK_BRUSH;		// T1.5
+wc_background_stock = 
+#ifdef debug
+COLOR_WINDOW + 1;
+#else
+BLACK_BRUSH;		// T1.5
+#endif
 
 LPCTSTR
 wc_iconname = IDI_QUESTION,			// T1.3
@@ -28,7 +36,7 @@ wc_cursorname = IDC_UPARROW;			// T1.4
 
 // window constants
 DWORD
-wnd_style = 1 & WS_VSCROLL;			// T2.3
+wnd_style = WS_OVERLAPPED | WS_VSCROLL;		// T2.3
 
 int
 wnd_left = 200,					// *		*

@@ -6,6 +6,7 @@
 # 	    mingw32		#
 #				#
 
+# CC = g++ using mingw or cygnus on windows
 CC=i586-mingw32msvc-gcc
 CFLAGS=-c -Wall -mwindows
 LDFLAGS= -mwindows -Wl,--allow-multiple-definition

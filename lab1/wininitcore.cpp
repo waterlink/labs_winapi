@@ -8,6 +8,10 @@
 #include "prototypes.hpp"
 #include "constants.hpp"
 
+#ifdef debug
+#include <cstdio>
+#endif
+
 void
 initWndClass(
 		WNDCLASS & WndClass,
@@ -23,6 +27,9 @@ initWndClass(
 					NULL, 
 					wc_iconname
 				);
+	#ifdef debug
+		printf("%d %d\n", IDI_APPLICATION, IDC_ARROW);
+	#endif
 	WndClass.hCursor = LoadCursor(
 					NULL,
 					wc_cursorname
