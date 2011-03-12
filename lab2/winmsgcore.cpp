@@ -105,11 +105,11 @@ on_paint(
 			);
 
 	// load our bitmap from file in current folder
-	hBitmap = img_load(
-				hWnd,
-				img_path,
-				img_type
-			);
+	hBitmap = img_load(							// **************
+				hWnd,						// *		*
+				img_path,					// *   L2T1.2	*
+				img_type					// *		*
+			);							// **************
 
 	// get a size of our bitmap
 	GetObject(
@@ -139,9 +139,9 @@ on_paint(
 	StretchBlt(
 			hDC,
 			0,
-			0,
-			(stretched ? Rect.right : Rect.right / 2), 
-			(stretched ? Rect.bottom : Rect.bottom / 2),
+			0,								//***************
+			(stretched ? Rect.right : Rect.right / 2), 			//*    L2T1.1	*
+			(stretched ? Rect.bottom : Rect.bottom / 2),			//***************
 			hCompatibleDC,
 			0,
 			0,
@@ -175,7 +175,7 @@ on_keydown(
 		HWND & hWnd
 	){
 
-	stretched = !stretched;
+	stretched = !stretched;								//	L2T1.1
 
 	//fprintf(stderr, "stretch is %d\n", stretched);
 

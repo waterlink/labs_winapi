@@ -2,6 +2,7 @@
 #include "prototypes.hpp"
 #include "constants.hpp"
 
+// L2T1.2
 HANDLE
 img_load(
 		HWND & hWnd,

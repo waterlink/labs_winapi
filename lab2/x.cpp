@@ -1,3 +1,17 @@
+/*
+					Lab_2	Variant #2
+					Edited by Fedorov Alex
+	L2T:
+		1. image modifications
+		v	1) stretched and unstretched bitmap
+		v	2) do not load image each time
+			3) out text over an image
+			4) out this text on printer
+		2. graphical primitives
+			1)
+
+
+*/
 
 /*								*
  *			Lab_1	Variant #2			*
