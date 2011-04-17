@@ -1,16 +1,11 @@
-// author Fedorov Alex
-#include "tapi5.hpp"
+
+#include "tapi6.hpp"
+
 #include <windows.h>
 #include <commctrl.h>
+#include "menu.h"
 #include <cstdio>
 
-// here error 1 was fixed
-#define IDM_Enable_Disable 0
-#define IDM_Exit 1
-#define IDM_About 2
-#define IDP_File 3
-#define IDP_Help 4
-#define IDM_Bitmap 5
 
 char* pMessages[]=
 {
@@ -20,11 +15,10 @@ char* pMessages[]=
 "File operations",
 "Help operations",
 "Menu example",
-"System menu",
-"Shows specific action"
+"System menu"
 };
 
-LRESULT CALLBACK DepartComTechWndProc(HWND,UINT,UINT,LONG);
+long WINAPI DepartComTechWndProc(HWND,UINT,UINT,LONG);
 
 HWND hStatusWindow;
 UINT wId;
@@ -36,13 +30,13 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 				LPSTR lpszCmdParam, int nCmdShow)
 {
 
-WNDCLASS WndClass; 
 HWND hWnd; 
+WNDCLASS WndClass; 
 MSG Msg;
-
+HACCEL hAccel1, hAccel2, hAccel3, hAccel4;
 hInst=hInstance;
+
 // инициализация имени класса как строки
-//char szClassName[]="DepartComTech";
 
 WndClass.style=CS_HREDRAW|CS_VREDRAW;
 WndClass.lpfnWndProc=(WNDPROC)DepartComTechWndProc;
@@ -61,7 +55,7 @@ if(!RegisterClass(&WndClass))
 	return 0;
 }
 
-hWnd=CreateWindow("DepartComTech_Menu","Fifth Example",
+hWnd=CreateWindow("DepartComTech_Menu","Sixth Example",
 				WS_OVERLAPPEDWINDOW, 
 				CW_USEDEFAULT,CW_USEDEFAULT,
 				CW_USEDEFAULT,CW_USEDEFAULT,
@@ -87,53 +81,36 @@ if(!hStatusWindow)
 	return 0;
 }
 
-//создание меню
-//
-AppendMenu((hFileMenu=CreatePopupMenu()),MF_ENABLED|
-		   MF_STRING,IDM_Enable_Disable,
-		   "&Enable exit");
-AppendMenu(hFileMenu,MF_GRAYED| MF_STRING,IDM_Exit,
-			"E&xit");
-AppendMenu((hHelpMenu=CreatePopupMenu()),MF_DISABLED|
-		   MF_STRING,IDM_About,
-			"&About");
-//
-hMenu=CreateMenu();
+//загрузка таблицы акселераторов
+hAccel1=LoadAccelerators(hInst,"MyAccelerators");
+/*hAccel2=LoadAccelerators(hInst,"EX");
+hAccel3=LoadAccelerators(hInst,"ABO");
+hAccel4=LoadAccelerators(hInst,"DISEN");*/
 
-AppendMenu(hMenu,MF_ENABLED|MF_POPUP,(UINT)hFileMenu,
-			"&File");
+if (hAccel1 == NULL/* || hAccel2 == NULL || hAccel3 == NULL || hAccel4 == NULL */){
 
-AppendMenu(hMenu,MF_ENABLED|MF_POPUP,(UINT)hHelpMenu,
-			"&Help");
+	printf("can't load acc\n");
 
-// here seems to be fixed error 3
-static HANDLE hBitmap;
-int nDimension;
+}
 
-	nDimension=GetSystemMetrics(SM_CYMENUCHECK);
-	hBitmap=LoadImage(hInst,"my.bmp", IMAGE_BITMAP,
-	nDimension,nDimension,LR_LOADFROMFILE);
-	AppendMenu(hMenu,MFT_BITMAP,IDM_Bitmap, (char *) hBitmap);
-
-
-
-//
-SetMenu(hWnd,hMenu);
 //отобразить окно		   
 ShowWindow(hWnd,nCmdShow);
 UpdateWindow(hWnd);
-//
-DrawMenuBar(hWnd);
+
+hFileMenu=GetSubMenu(GetMenu(hWnd),0);
 
 while(GetMessage(&Msg,NULL,0,0))
 {
-	TranslateMessage(&Msg);
+	if(!TranslateAccelerator(hWnd,hAccel1,&Msg))
+	{
+		TranslateMessage(&Msg);
+	}
 	DispatchMessage(&Msg);
 }
 return Msg.wParam;
 }
 
-LRESULT CALLBACK DepartComTechWndProc(HWND hWnd,
+long WINAPI DepartComTechWndProc(HWND hWnd,
 				UINT Message, UINT wParam,LONG lParam)
 
 {
@@ -142,28 +119,19 @@ static UINT nFlag=MF_ENABLED;
 
 char* pContent[]=
 {
-"Enable exit",
-"Disable exit"
+"&Enable exit\te",
+"&Disable exit\td"
 
 };
 static UINT nIndex=0;
-
-
-//here error 2 was fixed
-static HANDLE hBitmap;
-int nDimension;
-
 switch(Message)
 {
-case WM_CREATE:
-	/*nDimension=GetSystemMetrics(SM_CYMENUCHECK);
-	hBitmap=LoadImage(hInst,"my.bmp", IMAGE_BITMAP,
-	nDimension,nDimension,LR_LOADFROMFILE);
-	AppendMenu(GetMenu(hWnd),MFT_BITMAP,IDM_Bitmap, (char *) hBitmap);*/
+case WM_SYSCOMMAND:
+	printf("%d %d %d %d\n", LOWORD(wParam), IDM_Exit, IDM_About, IDM_Enable_Disable);
 	break;
-
 case WM_COMMAND:
-	switch(wParam)
+	printf("%d %d %d %d\n", LOWORD(wParam), IDM_Exit, IDM_About, IDM_Enable_Disable);
+	switch(LOWORD(wParam))
 	{
 	case IDM_Enable_Disable:
 		EnableMenuItem(hFileMenu, IDM_Exit, MF_BYCOMMAND|nFlag);
@@ -172,8 +140,9 @@ case WM_COMMAND:
 		ModifyMenu(hFileMenu,IDM_Enable_Disable,
 			MF_BYCOMMAND|MF_STRING,IDM_Enable_Disable,
 			pContent[nIndex]);
-		break;
-//
+
+	break;
+
 	case IDM_Exit:
 		SendMessage(hWnd,WM_CLOSE,NULL,NULL);
 	break;
@@ -184,6 +153,7 @@ case WM_SIZE:
 	return 0;
 //
 case WM_MENUSELECT:
+	printf("%d %d %d\n", LOWORD(wParam), HIWORD(wParam), MF_POPUP);
 	if(((UINT)HIWORD(wParam)==0xffff)&
 		((HMENU)lParam==0))
 	{
@@ -200,22 +170,18 @@ case WM_MENUSELECT:
 	if((UINT)HIWORD(wParam)& MF_POPUP)
 	{
 	SendMessage(hStatusWindow,SB_SETTEXT,(WPARAM) 0,
-		(LPARAM) pMessages[3+LOWORD(wParam)]);
-	return 0;
-	}
-	if((UINT)HIWORD(wParam)& MFT_BITMAP)
-	{
-		MessageBox(hWnd, "You used our smile-menu!!", "Information", MB_OK | MB_ICONINFORMATION);
+		(LPARAM) pMessages[3 + LOWORD(wParam)]);
 	return 0;
 	}
 	SendMessage(hStatusWindow,SB_SETTEXT,(WPARAM) 0,
-		(LPARAM) pMessages[LOWORD(wParam)]);
+		(LPARAM) pMessages[LOWORD(wParam) - IDM_Enable_Disable]);
 	return 0;
 case WM_DESTROY:
-	DeleteObject(hBitmap);
+
 	PostQuitMessage(0);
 	return 0;
-}
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 return DefWindowProc(hWnd,Message,wParam,lParam);
 }
+
 

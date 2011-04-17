@@ -1,0 +1,43 @@
+#include <windows.h>
+#include "menu.h"
+
+MyMenu MENU
+{
+POPUP "&File"
+	{
+	MENUITEM "Enable e&xit\te",IDM_Enable_Disable
+	MENUITEM "Ex&it\ti", IDM_Exit, GRAYED
+	}
+POPUP "&Help"
+	{
+	MENUITEM "About\ta", IDM_About
+	}
+}
+MyAccelerators ACCELERATORS
+{
+	"^b",	IDM_Enable_Disable,	NOINVERT
+	"^a",	IDM_Exit,	NOINVERT
+	"^c",	IDM_About,	NOINVERT
+	//"d",	IDM_Enable_Disable
+}
+/*
+ENDIS ACCELERATORS
+{
+	"X",	IDM_Enable_Disable,	CONTROL,	VIRTKEY
+}
+
+EX ACCELERATORS
+{
+	"E",	IDM_Exit,	CONTROL,	VIRTKEY
+}
+
+ABO ACCELERATORS
+{
+	"A",	IDM_About,	CONTROL,	VIRTKEY
+}
+
+DISEN ACCELERATORS
+{
+	"D",	IDM_Enable_Disable,	CONTROL,	VIRTKEY
+}
+*/
