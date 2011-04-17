@@ -1,0 +1,21 @@
+#define IDM_EXIT		101
+#define IDM_RadioButton1	102
+#define IDM_RadioButton2	103
+#define IDM_RadioButton3	104
+#define IDM_CheckButton1	105
+#define IDM_CheckButton2	106
+#define IDM_CheckButton3	107
+#define IDM_DisplayDialog	108
+#define IDM_DisplayDialog2	109
+
+#define IDC_BUTTON1		201
+#define IDC_BUTTON2		202
+#define IDC_GROUPBOX1		203
+#define IDC_RADIOBUTTON1	204
+#define IDC_RADIOBUTTON2	205
+#define IDC_RADIOBUTTON3	206
+#define IDC_GROUPBOX2		207
+#define IDC_CHECKBOX1		208
+#define IDC_CHECKBOX2		209
+#define IDC_CHECKBOX3		210
+#define IDC_STATUSBAR		301

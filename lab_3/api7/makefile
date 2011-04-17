@@ -8,22 +8,26 @@
 
 # CC = g++ using mingw or cygnus on windows
 CC=i586-mingw32msvc-gcc
+RC=i586-mingw32msvc-windres
 CFLAGS=-c -Wall -mwindows
 LDFLAGS= -mwindows -Wl,--allow-multiple-definition
 LIBRARIES= -lwinspool -lcomctl32
 SOURCES= *.cpp
 HEADERS= *.hpp
-OBJECTS= *.o
+RESOURCES= *.rc
+OBJECTS= *.o *.coff
 EXECUTABLE=x.exe
-
-DEBUG= -g -O0
 
 all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@ $(LIBRARIES) $(DEBUG)
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@ $(LIBRARIES)
+
+%.coff: %.rc
+	$(RC) -i $< -o $@
 
 %.o: %.cpp %.hpp
-	$(CC) $(CFLAGS) $< -o $@ $(DEBUG)
+	$(CC) $(CFLAGS) $< -o $@
+
 
 

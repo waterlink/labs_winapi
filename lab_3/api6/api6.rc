@@ -5,12 +5,18 @@ MyMenu MENU
 {
 POPUP "&File"
 	{
-	MENUITEM "Enable e&xit\te",IDM_Enable_Disable
-	MENUITEM "Ex&it\ti", IDM_Exit, GRAYED
+	MENUITEM "Enable e&xit\tctrl+b",IDM_Enable_Disable
+	MENUITEM "Ex&it\tctrl+a", IDM_Exit, GRAYED
+	}
+POPUP "My_&Test"
+	{
+	MENUITEM "&Image\tctrl+i", IDM_Image
+	MENUITEM "Primitive &1\tctrl+1", IDM_P1
+	MENUITEM "Primitive &2\tctrl+2", IDM_P2
 	}
 POPUP "&Help"
 	{
-	MENUITEM "About\ta", IDM_About
+	MENUITEM "About\tctrl+c", IDM_About
 	}
 }
 MyAccelerators ACCELERATORS
@@ -18,6 +24,9 @@ MyAccelerators ACCELERATORS
 	"^b",	IDM_Enable_Disable,	NOINVERT
 	"^a",	IDM_Exit,	NOINVERT
 	"^c",	IDM_About,	NOINVERT
+	"^1",	IDM_P1,		NOINVERT
+	"^2",	IDM_P2,		NOINVERT
+	"^i",	IDM_Image,	NOINVERT
 	//"d",	IDM_Enable_Disable
 }
 /*
