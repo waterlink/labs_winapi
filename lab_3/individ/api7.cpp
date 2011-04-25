@@ -33,7 +33,7 @@ MSG Msg;
 char szClassName[]="ButtonsExample";
 hInst=hInstance;
 
-WndClass.style=CS_HREDRAW|CS_VREDRAW;
+/*WndClass.style=CS_HREDRAW|CS_VREDRAW;
 WndClass.lpfnWndProc=ButtonsExampleWndProc;
 WndClass.cbClsExtra=0;
 WndClass.cbWndExtra=0;
@@ -75,7 +75,11 @@ while(GetMessage(&Msg,NULL,0,0))
 	DispatchMessage(&Msg);
 
 }
-return Msg.wParam;
+*/
+
+DialogBox(hInst,"ShopDialog",NULL,ShopDialogDialogProc);
+
+return 0;
 }
 
 long WINAPI ButtonsExampleWndProc(HWND hWnd,
