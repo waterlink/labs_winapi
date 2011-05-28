@@ -1,0 +1,45 @@
+/*
+ * explore.rc
+ * This file is part of winapi lab 4
+ *
+ * Copyright (C) 2011 - waterlink
+ *
+ * winapi lab 4 is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * winapi lab 4 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with winapi lab 4; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Boston, MA  02110-1301  USA
+ */
+
+#include "deffs.hpp"
+#include <windows.h>
+#include <commctrl.h>
+#include "controls.h"
+
+exploredialog DIALOGEX 50, 50, 400, 300 STYLE DS_MODALFRAME | DS_3DLOOK | DS_CONTEXTHELP | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Registry Explore"
+FONT 8, "MS Sans Serif"
+{
+
+	//CONTROL "GO", btnGo, "button", BS_PUSHBUTTON | BS_CENTER | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 194, 100, 16, 16
+	//CONTROL ">", btnChoose, "button", BS_PUSHBUTTON | BS_CENTER | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 194, 125, 16, 16
+	//CONTROL "^", btnUp, "button", BS_PUSHBUTTON | BS_CENTER | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 194, 150, 16, 16
+	//CONTROL "<", btnUnchoose, "button", BS_PUSHBUTTON | BS_CENTER | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 194, 175, 16, 16
+	CONTROL "OK", btnOk, "button", BS_PUSHBUTTON | BS_CENTER | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 50, 260, 64, 16
+	CONTROL "Cancel", btnCancel, "button", BS_PUSHBUTTON | BS_CENTER | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 50, 276, 64, 16
+	//LTEXT "Name:\nType:\nValue:", lblInfo, 140, 260, 150, 40
+	LTEXT "Way: \\", lblWay, 50, 25, 300, 16
+	CONTROL "View", lvView, WC_LISTVIEW, LVS_SINGLESEL | LVS_EX_TWOCLICKACTIVATE | WS_BORDER, 50, 50, 100, 200
+	CONTROL "Chosen", lvChosen, WC_LISTVIEW, LVS_SINGLESEL | LVS_EX_TWOCLICKACTIVATE | WS_BORDER, 250, 50, 100, 200
+
+}
+
